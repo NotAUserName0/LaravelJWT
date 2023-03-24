@@ -5,21 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use \Illuminate\Database\QueryException as QE;
+use App\Models\UserLogin;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function __construct()
+   /* public function __construct()
     {
         $this->middleware('auth:web', ['except' => ['free']]);
+    }*/
+
+    public function index(){
+        return response()->json([
+            'status'=>'accepted',
+        ],200);
     }
 
     public function login(Request $request){
         try{
             $jsonUser = $request->json()->all();
 
-            $user = Product::where('correo',$jsonUser['correo'])->get();
+            $user = UserLogin::where('correo',$jsonUser['email'])->get();
 
             return response()->json([
                 'status'=>'accepted',

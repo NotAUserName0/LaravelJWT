@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 
-Route::get('/login', 'App\Http\Controllers\Controller@login');
+Route::post('/login', 'App\Http\Controllers\Controller@login');
+
+Route::get('/index', 'App\Http\Controllers\Controller@index');
 
 
 Route::get('/register', function () {
