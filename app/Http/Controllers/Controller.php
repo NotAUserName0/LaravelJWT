@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use \Illuminate\Database\QueryException as QE;
 use App\Models\UserLogin;
+use Illuminate\Http\Request;
 
 class Controller extends BaseController
 {
@@ -27,7 +29,7 @@ class Controller extends BaseController
         try{
             $jsonUser = $request->json()->all();
 
-            $user = UserLogin::where('correo',$jsonUser['email'])->get();
+            $user = User::where('email',$jsonUser['email'])->get();
 
             return response()->json([
                 'status'=>'accepted',
