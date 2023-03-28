@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use \Illuminate\Database\QueryException as QE;
-use App\Models\UserLogin;
 use Illuminate\Http\Request;
 
 class Controller extends BaseController
@@ -27,14 +26,31 @@ class Controller extends BaseController
 
     public function login(Request $request){
         try{
-            $jsonUser = $request->json()->all();
 
-            $user = User::where('email',$jsonUser['email'])->get();
+            if(count($request->all()) > 0){ //check empty request
+                $jsonUser = $request->json()->all();
+                $user = User::where('email',$jsonUser['email'])->get();
 
-            return response()->json([
-                'status'=>'accepted',
-                'user'=>$user
-            ],200);
+                if(count($user) == 1){
+                    return response()->json([
+                        'status'=>'accepted',
+                        'user'=>$user
+                    ],200);
+                }
+
+                return response()->json([
+                    'status'=>'No data',
+
+                ],500);
+
+
+            }else{
+                return response()->json([
+                    'status'=>'No body data',
+
+                ],500);
+            }
+
         }catch(QE $exception){
             return response()->json([
                 'status'=>'rejected',

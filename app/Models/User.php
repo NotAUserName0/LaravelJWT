@@ -15,13 +15,14 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'id',
         'nombre',
-        'apellido',
-        'genero',
+        //'apellido',
+        //'genero',
         'email',
         'password',
         'rol',
     ];
 
+    /*
     protected $hidden = [
         'password',
         'remember_token',
@@ -30,6 +31,7 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    */
 
     public function getJWTIdentifier() //identificador de jwt
     {
